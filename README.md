@@ -28,11 +28,6 @@ For the reconstruction task,
 Python3 vv_ae.py
 ```
 
-For the recognition task,
-```
-Python3 pc_sampling_cls.py
-```
-
 Note that the paths of data should be edited according to your setting.
 
 3. Test
@@ -43,4 +38,3 @@ Python3 vvae_eva.py
 
 The trained weight files should be put in (`./ae_files`) to evaluate the sampling performances.
 
-The pre-trained task and sampling models will come soon.
