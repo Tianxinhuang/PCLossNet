@@ -81,7 +81,7 @@ def mlp_architecture_ala_iclr_18(n_pc_points, bneck_size, dnum=3, bneck_post_mlp
                     'verbose': False,
                     'non_linearity':tf.nn.relu
                     }
-    if mode in ['fc','lae']:
+    if mode in ['ae','lae']:
         decoder = decoder_with_fc_only
         decoder_args = {'layer_sizes': [256,256, np.prod(n_input)],
                         'b_norm': False,
