@@ -1,5 +1,5 @@
 # PCLossNet
-The codes for Learning to Train a Point Cloud Reconstruction Network without Matching[ECCV'22]
+[ECCV'22] The codes for Learning to Train a Point Cloud Reconstruction Network without Matching
 
 ## Environment
 * TensorFlow 1.13.1
