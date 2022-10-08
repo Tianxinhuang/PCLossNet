@@ -15,6 +15,7 @@ from tf_ops.grouping import tf_grouping
 
 from lossnet import sampling,mlp_architecture_ala_iclr_18,local_kernel
 from provider import shuffle_points,jitter_point_cloud 
+import argparse
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 def getnormal(data):
@@ -196,7 +197,7 @@ def evaluate(args):
         testfiles=getdata.getfile(os.path.join(args.filepath,'test_files.txt'))
 
         for i in range(len(testfiles)):
-            testdata = getdata.load_h5(os.path.join(DATA_DIR, testfiles[i]))[:,:,:3]
+            testdata = getdata.load_h5(os.path.join(args.filepath, testfiles[i]))[:,:,:3]
             testdata=get_normal(testdata,True)
             
             allnum=int(len(testdata)/args.batch_size)*args.batch_size

@@ -6,9 +6,6 @@ import getdata
 import tf_util
 import copy
 import random
-DATA_DIR=getdata.getspdir()
-
-filelist=os.listdir(DATA_DIR)
 
 from tf_ops.emd import tf_auctionmatch
 from tf_ops.CD import tf_nndistance
@@ -16,6 +13,7 @@ from tf_ops.sampling import tf_sampling
 from lossnet import mlp_architecture_ala_iclr_18,pclossnet,local_kernel
 from provider import shuffle_data,shuffle_points,rotate_point_cloud,jitter_point_cloud
 from dgcnn import dgcnn_kernel,dgcls_kernel
+import argparse
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 tf.set_random_seed(1)

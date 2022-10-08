@@ -213,6 +213,7 @@ def pclossnet(scope,inpts,out,centype='lnsa',augment=True,BATCH_SIZE=16):
             inlocal,rinlocal,maxinlocal,lr=local_loss_net(inpts,gdifval,cennum=128,centype=centype,augment=augment)
         with tf.variable_scope('2ad',reuse=True):
             outlocal,routlocal,maxoutlocal,_=local_loss_net(out,gdifval,rawmask=maxinlocal,centype=centype,augment=augment)
+
         ginlocal=inlocal
         goutlocal=outlocal
         ginlocals=tf.reshape(ginlocal,[BATCH_SIZE,-1,3])
@@ -228,4 +229,3 @@ def pclossnet(scope,inpts,out,centype='lnsa',augment=True,BATCH_SIZE=16):
         loss_d_local=-tf.log(local_loss+1e-5)+1*loss_cons#/////////
 
     return loss_e,loss_d_local
-
