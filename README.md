@@ -11,16 +11,16 @@ The codes for Learning to Train a Point Cloud Reconstruction Network without Mat
 The adopted ShapeNet Part dataset is adopted following [FoldingNet](http://www.merl.com/research/license#FoldingNet), while the ModelNet10 and ModelNet40 datasets follow [PointNet](https://github.com/charlesq34/pointnet.git). Other datasets can also be used. Just revise the path by the (`--filepath`) parameter when training or evaluating the networks.
 The files in (`--filepath`) should be organized as
 
-> filepath
->> trainfile1.h5
-
->> trainfile2.h5
-
->> ...
-
->> train\_files.txt
-
->> test\_files.txt
+        <filepath>
+        ├── trainfile1.h5
+        │   
+        ├── trainfile2.h5
+        │   
+        ├── ...
+        │   
+        ├── train\_files.txt
+        │   
+        └── test_files.txt
 
 where the contents in (`train_files.txt`) or (`test_files.txt`) should include the directory of training or testing h5 files, such as:
 
