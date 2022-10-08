@@ -13,9 +13,13 @@ The files in (`--filepath`) should be organized as
 
 > filepath
 >> trainfile1.h5
+
 >> trainfile2.h5
+
 >> ...
+
 >> train\_files.txt
+
 >> test\_files.txt
 
 where the contents in (`train_files.txt`) or (`test_files.txt`) should include the directory of training or testing h5 files, such as:
