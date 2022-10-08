@@ -16,8 +16,6 @@ from tf_ops.sampling import tf_sampling
 from lossnet import mlp_architecture_ala_iclr_18,pclossnet,local_kernel
 from provider import shuffle_data,shuffle_points,rotate_point_cloud,jitter_point_cloud
 from dgcnn import dgcnn_kernel,dgcls_kernel
-trainfiles=getdata.getfile(os.path.join(DATA_DIR,'train_files.txt'))
-#testfiles=getdata.getfile(os.path.join(DATA_DIR,'test_files.txt'))
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 tf.set_random_seed(1)
@@ -97,7 +95,7 @@ def train(args):
     varge=[v for v in allvars if 'ge' in v.name]
     varad=[v for v in allvars if '1ad' in v.name or '2ad' in v.name]
     
-    regularizer=tf.contrib.layers.l2_regularizer(REGULARIZATION_RATE)
+    regularizer=tf.contrib.layers.l2_regularizer(0.0001)
     gezhengze=tf.reduce_sum([regularizer(v) for v in varge])
     lde_zhengze=tf.reduce_sum([regularizer(v) for v in varad])
 
@@ -121,12 +119,14 @@ def train(args):
         is_training(True, session=sess)
 
         datalist=[]
-        for j in range(args.filenum):
-            traindata = getdata.load_h5(os.path.join(DATA_DIR, trainfiles[j]))
+        trainfiles=getdata.getfile(os.path.join(args.filepath,'train_files.txt'))
+        filenum=len(trainfiles)
+        for j in range(filenum):
+            traindata = getdata.load_h5(os.path.join(args.filepath, trainfiles[j]))
             datalist.append(traindata)
 
         for i in range(args.itertime):
-            for j in range(args.filenum):
+            for j in range(filenum):
                 traindata=datalist[j]
                 
                 ids=list(range(len(traindata)))
@@ -160,7 +160,6 @@ if __name__=='__main__':
     parser.add_argument('--savestep', type=int, default=100, help='The interval to save checkpoint')
     parser.add_argument('--seestep', type=int, default=16, help='The batch interval to see training errors')
     parser.add_argument('--itertime', type=int, default=1000, help='The number of epochs for iteration')
-    parser.add_argument('--filenum', type=int, default=6, help='The number of h5files')
     parser.add_argument('--filepath', type=str, default='./data', help='The path of h5 training data')
     parser.add_argument('--savepath', type=str, default='./modelvv_ae/', help='The path of saved checkpoint')
     parser.add_argument('--enctype', type=str, default='pn', help='The type of encoder')
