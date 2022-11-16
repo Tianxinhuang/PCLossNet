@@ -154,9 +154,9 @@ def evaluate(args):
     with tf.variable_scope('ge'):
         if not local:
             if enctype is 'dgcnn':
-                word=dgcnn_kernel(pointcloud_pl, is_training=tf.constant(True), bn_decay=None)
+                word=dgcnn_kernel(pointcloud_pl, is_training=tf.constant(False), bn_decay=None)
             elif enctype is 'pn2':
-                _,word=local_kernel(pointcloud_pl,local=local,cenlist=None,pooling='max')
+                _,word=local_kernel(pointcloud_pl,local=local,it=False,cenlist=None,pooling='max')
             else:
                 word=encoder(pointcloud_pl,n_filters=enc_args['n_filters'],filter_sizes=enc_args['filter_sizes'],strides=enc_args['strides'],b_norm=enc_args['b_norm'],verbose=enc_args['verbose'])
 
@@ -168,7 +168,7 @@ def evaluate(args):
         else:
             encoder, decoder, enc_args, dec_args = mlp_architecture_ala_iclr_18(args.ptnum//32, args.bneck,3,mode=dectype)
             with tf.variable_scope('ge'):
-                cens,feats=local_kernel(pointcloud_pl,local=local,pooling='max')
+                cens,feats=local_kernel(pointcloud_pl,local=local,it=False,pooling='max')
                 cennum=cens.get_shape()[1].value
                 outlist=[]
                 for i in range(cennum):
